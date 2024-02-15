@@ -1,0 +1,71 @@
+#
+# Copyright 2013-2024 Software Radio Systems Limited
+#
+# By using this file, you agree to the terms and conditions set
+# forth in the LICENSE file which can be found at the top level of
+# the distribution.
+#
+
+Rebaser:
+  cron: "*/10 6-22 * * 1-5"
+  cron_timezone: "Europe/Madrid"
+  ref: dev
+  active: true
+  variables:
+    - variable_type: env_var
+      key: CI_DESCRIPTION
+      value: "Rebaser"
+    - variable_type: env_var
+      key: NOTIFY_SLACK
+      value: "false"
+
+Nightly:
+  cron: "30 23 * * 0-5"
+  cron_timezone: "Europe/Madrid"
+  ref: dev
+  variables:
+    - variable_type: env_var
+      key: CI_DESCRIPTION
+      value: "Nightly"
+    - variable_type: env_var
+      key: GRADUATION_BRANCH
+      value: next
+    - variable_type: env_var
+      key: NOTIFY_SLACK
+      value: "true"
+    - variable_type: env_var
+      key: SLACK_CHANNEL_OK
+      value: "#ci_gnb"
+
+Weekly:
+  cron: "00 13 * * 6"
+  cron_timezone: "Europe/Madrid"
+  ref: dev
+  variables:
+    - variable_type: env_var
+      key: CI_DESCRIPTION
+      value: "Weekly"
+    - variable_type: env_var
+      key: GRADUATION_BRANCH
+      value: main
+    - variable_type: env_var
+      key: NOTIFY_SLACK
+      value: "true"
+    - variable_type: env_var
+      key: SLACK_CHANNEL_OK
+      value: "#ci_gnb"
+
+Alternative OSs:
+  cron: "00 10 * * 6"
+  cron_timezone: "Europe/Madrid"
+  ref: dev
+  variables:
+    - variable_type: env_var
+      key: CI_DESCRIPTION
+      value: "Alternative OSs"
+    - variable_type: env_var
+      key: NOTIFY_SLACK
+      value: "true"
+    - variable_type: env_var
+      key: SLACK_CHANNEL_OK
+      value: "#ci_gnb"
