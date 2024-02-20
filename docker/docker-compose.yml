@@ -166,9 +166,9 @@ services:
       - 5gc
       - gnb
     # Command to run into the final container
-    command: bash -c "sleep 10; ip netns add ue1; sleep 120; nohup srsue /root/.config/srsran/ue.conf & sleep 10; ip netns exec ue1 ip route add default via 10.45.1.1 dev tun_srsue; ip netns exec ue1 ping -w 9999 10.45.1.1"
-    # stdin_open: true # docker run -i
-    # tty: true        # docker run -t
+    # command: bash -c "sleep 10; ip netns add ue1; sleep 120; nohup srsue /root/.config/srsran/ue.conf & sleep 10; ip netns exec ue1 ip route add default via 10.45.1.1 dev tun_srsue; ip netns exec ue1 ping -w 9999 10.45.1.1"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
 
 configs:
   gnb_config.yml:
