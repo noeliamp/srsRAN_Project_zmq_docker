@@ -53,13 +53,19 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     cmake \
     && rm -rf /var/lib/apt/lists/*
 
-ARG MONGO_MAJOR_VERSION=6
+# Eliminado debido a la dependencia de la última versión de Mongo con instrucciones AVX512
+# ARG MONGO_MAJOR_VERSION=6
+# RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends wget gnupg \
+#     && wget -qO - https://www.mongodb.org/static/pgp/server-${MONGO_MAJOR_VERSION}.0.asc | apt-key add \
+#     && . /etc/os-release \
+#     && echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $UBUNTU_CODENAME/mongodb-org/${MONGO_MAJOR_VERSION}.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-${MONGO_MAJOR_VERSION}.0.list \
+#     && DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends mongodb-org \
+#     && apt-get autoremove && apt-get clean
+
+RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main" | tee /etc/apt/sources.list.d/focal-security.list && apt-get update && apt-get install libssl1.1
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends wget gnupg \
-    && wget -qO - https://www.mongodb.org/static/pgp/server-${MONGO_MAJOR_VERSION}.0.asc | apt-key add \
-    && . /etc/os-release \
-    && echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $UBUNTU_CODENAME/mongodb-org/${MONGO_MAJOR_VERSION}.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-${MONGO_MAJOR_VERSION}.0.list \
-    && DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends mongodb-org \
-    && apt-get autoremove && apt-get clean
+    && wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add && . /etc/os-release \
+    && echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends mongodb-org && apt-get autoremove && apt-get clean
 
 # To set a fixed version of open5gs use
 ARG OPEN5GS_VERSION=v2.6.1
