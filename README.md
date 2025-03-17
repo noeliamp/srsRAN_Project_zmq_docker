@@ -13,7 +13,7 @@ Steps
 
 ```bash
 # Linux / Windows WSL
-git clone https://github.com/GinesGarcia/srsRAN_Project_zmq_docker.git
+git clone https://github.com/noeliamp/srsRAN_Project_zmq_docker.git
 
 cd srsRAN_Project_zmq_docker/docker
 
